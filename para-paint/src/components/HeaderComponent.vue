@@ -46,10 +46,10 @@ const routes = [
 
 <style lang="scss">
 .header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
     background-color: #333;
     color: #fff;
     background-color: rgb(62, 131, 214);
@@ -63,11 +63,14 @@ const routes = [
 }
 
 .header__nav {
+    padding: 1rem;
+    padding-right: 2rem;
     display: flex;
 }
 
 .header__link {
-    margin-left: 1rem;
+    padding: 1rem;
+    padding-left: 2rem;
     color: #fff;
     text-decoration: none;
     &:hover {

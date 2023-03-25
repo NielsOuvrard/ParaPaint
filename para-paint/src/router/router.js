@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home-page.vue";
 import About from "../views/About-page.vue";
 import Login from "../views/Login-page.vue";
+import Bg from "../views/Bg.vue";   // Debug Flo
 
 const routes = [
     {
@@ -13,6 +14,11 @@ const routes = [
         path: "/about",
         name: "about",
         component: About,
+    },
+    {
+        path: "/bg",    //
+        name: "bg",     //
+        component: Bg,  // Debug Flo
     },
     // {
     //     path: "/draw",

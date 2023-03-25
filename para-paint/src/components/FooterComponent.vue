@@ -20,11 +20,12 @@
 
     &__left {
         margin: 0;
+        padding-left: 1rem;
     }
 
     &__right {
         margin: 0;
-        padding-right: 2rem;
+        padding-right: 3rem;
     }
 }
 </style>
