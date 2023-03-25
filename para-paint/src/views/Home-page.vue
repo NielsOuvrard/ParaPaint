@@ -11,7 +11,6 @@ const store = useCredentialsStore();
         <p v-if="store.name">
             {{ store.name }}
         </p>
-        <p>Welcome to the home page!</p>
     </div>
     <DrawPage />
 </template>
