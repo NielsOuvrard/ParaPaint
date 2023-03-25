@@ -1,10 +1,25 @@
+<script setup>
+// import { onMounted } from 'vue'
+// import { credentialsStore } from './stores/credentialsStore.js'
+
+// const storeCredits = credentialsStore()
+
+// onMounted(async () => {
+//     // storeCredits.init()
+// })
+</script>
+
 <template>
     <div id="app">
-        <header>
-            <nav>
-                <router-link to="/">Home</router-link>
-                <router-link to="/about">About</router-link>
-            </nav>
+        <header class="header">
+            <h1>ParaPaint</h1>
+            <div class="header__h1">
+                <!-- routes -->
+                <!-- <nav v-for="route in $routes">
+                  <router-link to="/">{{ route.name }}</router-link>
+                  <router-link to="/about">About</router-link>
+              </nav> -->
+            </div>
         </header>
         <main>
             <router-view></router-view>
@@ -15,26 +30,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "App",
-};
-</script>
-<!-- <template>
-    <DrawPage />
-</template>
-
-<script>
-import DrawPage from "./components/DrawPage.vue";
-
-export default {
-    name: "App",
-    components: {
-        DrawPage,
-    },
-};
-</script>
--->
 <style lang="scss">
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -43,5 +38,21 @@ export default {
     text-align: center;
     color: #2c3e58;
     // margin-top: 60px;
+}
+.header {
+    width: 100%;
+    background-color: rgb(62, 131, 214);
+    border-bottom: 2px solid;
+    border-color: rgb(215, 213, 213);
+    display: flex;
+    .__h1 {
+        height: 100%;
+        color: rgb(255, 255, 255);
+        font-size: larger;
+        font-weight: bolder;
+        // text-align: left;
+        padding: 16px;
+        padding-left: 32px;
+    }
 }
 </style>
