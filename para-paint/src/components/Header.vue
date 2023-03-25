@@ -28,7 +28,9 @@ const routes = [
 
 <template>
     <header class="header">
-        <h1 class="header__title">ParaPaint</h1>
+        <router-link class="header__link" :to="routes[0].path">
+            <h1 class="header__title">ParaPaint</h1>
+        </router-link>
         <nav class="header__nav">
             <router-link
                 v-for="route in routes"
@@ -55,6 +57,9 @@ const routes = [
 
 .header__title {
     margin: 0;
+    // remove router-link css
+    text-decoration: none;
+    color: #fff;
 }
 
 .header__nav {
