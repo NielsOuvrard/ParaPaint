@@ -1,12 +1,26 @@
 <script setup>
-// import { onMounted } from 'vue'
-// import { credentialsStore } from './stores/credentialsStore.js'
-
-// const storeCredits = credentialsStore()
-
-// onMounted(async () => {
-//     // storeCredits.init()
-// })
+const routes = [
+    {
+        path: "/",
+        component: () => import("./views/Home-page.vue"),
+    },
+    {
+        path: "/about",
+        component: () => import("./views/About-page.vue"),
+    },
+    {
+        path: "/login",
+        component: () => import("./views/Login-page.vue"),
+    },
+    // {
+    //     path: "/draw",
+    //     component: () => import("./views/Draw-page.vue"),
+    // },
+    // {
+    //     path: "/:pathMatch(.*)*",
+    //     component: () => import("./views/404-page.vue"),
+    // },
+];
 </script>
 
 <template>
@@ -14,11 +28,9 @@
         <header class="header">
             <h1>ParaPaint</h1>
             <div class="header__h1">
-                <!-- routes -->
-                <!-- <nav v-for="route in $routes">
-                  <router-link to="/">{{ route.name }}</router-link>
-                  <router-link to="/about">About</router-link>
-              </nav> -->
+                <nav v-for="route in routes" :key="route.path">
+                    <router-link :to="route.path">{{ route.path }}</router-link>
+                </nav>
             </div>
         </header>
         <main>

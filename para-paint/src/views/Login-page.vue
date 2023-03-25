@@ -6,10 +6,6 @@
                 Email:
                 <input type="text" id="name" v-model="name" required />
             </label>
-            <label>
-                Password:
-                <input v-model="password" type="password" />
-            </label>
             <button type="submit">Login</button>
         </form>
     </div>
@@ -21,7 +17,6 @@ import { useCredentialsStore } from "../stores/credentialsStore.js";
 const store = useCredentialsStore();
 
 const name = ref("");
-const password = ref("");
 
 function login() {
     store.name = name.value;
