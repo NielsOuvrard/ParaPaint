@@ -14,7 +14,7 @@
         <div></div>
     </div>
     <div class="footer">
-        <p>© Niels Ouvrard, Florian Griffon, Lenny Delgado</p>
+        <p>© Niels Ouvrard, Florian Griffon, Lenny Delgadoo</p>
         <p>Epitech Jam</p>
     </div>
 </template>
