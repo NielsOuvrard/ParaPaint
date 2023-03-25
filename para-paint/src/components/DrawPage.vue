@@ -14,10 +14,10 @@ import TryDraw from "./TryDraw.vue";
         />
         <div></div>
     </div>
-    <div class="footer">
+    <!-- <div class="footer">
         <p>© Niels Ouvrard, Florian Griffon, Lenny Delgado</p>
         <p>Epitech Jam</p>
-    </div>
+    </div> -->
 </template>
 
 <style scoped lang="scss">
@@ -32,7 +32,8 @@ import TryDraw from "./TryDraw.vue";
     border-color: rgb(215, 213, 213);
 }
 .footer {
-    width: 100%;
+    // align-items: center;
+    // width: 100%;
     position: absolute;
     bottom: 0px;
     left: 0px;

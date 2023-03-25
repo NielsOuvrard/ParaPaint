@@ -1,5 +1,6 @@
 <script setup>
 import myHeader from "./components/Header.vue";
+import myFooter from "./components/Footer.vue";
 </script>
 
 <template>
@@ -8,9 +9,7 @@ import myHeader from "./components/Header.vue";
         <main>
             <router-view></router-view>
         </main>
-        <footer>
-            <p>&copy; 2023 My Awesome Vue.js App</p>
-        </footer>
+        <myFooter />
     </div>
 </template>
 
