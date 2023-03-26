@@ -1,64 +1,39 @@
-<template>
-    <div class="try_draw" style="position: relative">
-        <vue-drawing-canvas
-            ref="VueCanvasDrawing"
-            v-model:image="image"
-            :width="1200"
-            :height="600"
-            :stroke-type="strokeType"
-            :line-cap="lineCap"
-            :line-join="lineJoin"
-            :fill-shape="fillShape"
-            :eraser="eraser"
-            :lineWidth="line"
-            :background-color="backgroundColor"
-            :watermark="watermark"
-            :initial-image="initialImage"
-            saveAs="png"
-            :lock="disabled"
-            :additional-images="additionalImages"
-            :background-image="ski"
-        />
-    </div>
-</template>
-
 <script setup>
 import VueDrawingCanvas from "vue-drawing-canvas";
-import { onMounted, ref } from "vue";
-import illu from "@/assets/illu.png";
+import { ref } from "vue";
+// import illu from "@/assets/illu.png";
 import ski from "@/assets/skieur_opacity.png";
+import compare from "@/components/compareImage.js";
 
-// const x = ref(0);
-// const y = ref(0);
 const image = ref(null);
-const eraser = ref(false);
-const disabled = ref(false);
-const fillShape = ref(false);
-const line = ref(5);
-// const color = ref("#ff0000 ");
-const strokeType = ref("dash");
-const lineCap = ref("square");
 const lineJoin = ref("round");
-const backgroundColor = ref("#FFFFFF");
-const watermark = ref(null);
-const additionalImages = ref([]);
-// const debug = ref("debug");
-const images = ref([illu, ski]);
-const selectedImage = ref(null);
+// const eraser = ref(false);
+// const disabled = ref(false);
+// const fillShape = ref(false);
+// const line = ref(5);
+// const strokeType = ref("dash");
+// const lineCap = ref("square");
+// const backgroundColor = ref("#FFFFFF");
+// const additionalImages = ref([]);
+// const images = ref([illu, ski]);
+// const selectedImage = ref(null);
 
-function randomItem(items) {
-    return items[Math.random() % items.length];
+// function randomItem(items) {
+//     return items[Math.random() % items.length];
+// }
+// onMounted(() => {
+//     selectedImage.value = randomItem(images);
+//     console.log(selectedImage.value);
+//     // }
+// });
+
+function compareNow() {
+    // console.log(ski);
+    console.log(image.value);
+    compare(ski, image.value, function (result) {
+        console.log(result);
+    });
 }
-onMounted(() => {
-    selectedImage.value = randomItem(images);
-    console.log(selectedImage.value);
-    // if ("vue-drawing-canvas" in window.localStorage) {
-    //     initialImage = JSON.parse(
-    //         window.localStorage.getItem("vue-drawing-canvas")
-    //     );
-    // }
-});
-
 // function getStrokes() {
 //     window.localStorage.setItem(
 //         "vue-drawing-canvas",
@@ -73,6 +48,21 @@ onMounted(() => {
 //     alert("Strokes cleared from local storage");
 // }
 </script>
+
+<template>
+    <div class="try_draw" style="position: relative">
+        <vue-drawing-canvas
+            ref="VueCanvasDrawing"
+            v-model:image="image"
+            :width="1200"
+            :height="600"
+            :line-join="lineJoin"
+            saveAs="png"
+            :background-image="ski"
+        />
+    </div>
+    <button @click="compareNow">compareNow</button>
+</template>
 
 <style lang="scss">
 .header {

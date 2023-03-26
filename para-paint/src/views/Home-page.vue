@@ -7,7 +7,7 @@ const store = useCredentialsStore();
 
 <template>
     <div class="home">
-        <h1 class="home__title">Home</h1>
+        <!-- <h1 class="home__title">Home</h1> -->
         <p v-if="store.name" class="home__subtitle">{{ store.name }}</p>
         <DrawPage class="home__draw-page" />
     </div>
