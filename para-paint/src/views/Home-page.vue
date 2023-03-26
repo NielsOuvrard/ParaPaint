@@ -8,7 +8,9 @@ const store = useCredentialsStore();
 <template>
     <div class="home">
         <!-- <h1 class="home__title">Home</h1> -->
-        <p v-if="store.name" class="home__subtitle">{{ store.name }}</p>
+        <p v-if="store.name" class="home__subtitle">
+            Player : {{ store.name }}
+        </p>
         <DrawPage class="home__draw-page" />
     </div>
 </template>
@@ -26,7 +28,7 @@ const store = useCredentialsStore();
 }
 
 .home__subtitle {
-    margin-top: 1rem;
+    margin: 0rem;
     font-size: 1.2rem;
 }
 

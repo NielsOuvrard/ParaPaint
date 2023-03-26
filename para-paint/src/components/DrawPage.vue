@@ -1,12 +1,30 @@
 <script setup>
 import VueDrawingCanvas from "vue-drawing-canvas";
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 // import illu from "@/assets/illu.png";
 import ski from "@/assets/skieur_opacity.png";
+import skiOriginal from "@/assets/skieur_no_opacity.png";
 import compare from "@/components/compareImage.js";
 
 const image = ref(null);
 const lineJoin = ref("round");
+const bestScore = ref(0);
+const Score = ref(0);
+
+watch(image, (newValue) => {
+    if (newValue) compareNow();
+});
+
+function compareNow() {
+    compare(skiOriginal, image.value, function (result) {
+        Score.value = result;
+    });
+}
+// const Score = computed(() => ({
+//     return compare(skiOriginal, image.value, function (result) {
+//         return result;
+//     });
+// });
 // const eraser = ref(false);
 // const disabled = ref(false);
 // const fillShape = ref(false);
@@ -27,13 +45,14 @@ const lineJoin = ref("round");
 //     // }
 // });
 
-function compareNow() {
-    // console.log(ski);
-    console.log(image.value);
-    compare(ski, image.value, function (result) {
-        console.log(result);
+onMounted(() => {
+    compare(skiOriginal, skiOriginal, function (result) {
+        bestScore.value = result;
     });
-}
+});
+// computed(() => {
+
+// })
 // function getStrokes() {
 //     window.localStorage.setItem(
 //         "vue-drawing-canvas",
@@ -50,15 +69,18 @@ function compareNow() {
 </script>
 
 <template>
+    <p>{{ Score }} / {{ bestScore }}</p>
+    <p>{{ (Score / bestScore) * 100 }}%</p>
     <div class="try_draw" style="position: relative">
         <vue-drawing-canvas
             ref="VueCanvasDrawing"
             v-model:image="image"
-            :width="1200"
+            :width="1067"
             :height="600"
             :line-join="lineJoin"
             saveAs="png"
             :background-image="ski"
+            :lineWidth="25"
         />
     </div>
     <button @click="compareNow">compareNow</button>
