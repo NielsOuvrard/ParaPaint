@@ -14,61 +14,15 @@ const Score = ref(0);
 watch(image, () => {
     console.log("image changed");
     compare(skiOriginal, image.value, (result) => {
-        Score.value = result;
+        if (result > 0) Score.value = result;
     });
 });
-
-function compareNow() {
-    compare(skiOriginal, image.value, (result) => {
-        Score.value = result;
-    });
-}
-// const Score = computed(() => ({
-//     return compare(skiOriginal, image.value, function (result) {
-//         return result;
-//     });
-// });
-// const eraser = ref(false);
-// const disabled = ref(false);
-// const fillShape = ref(false);
-// const line = ref(5);
-// const strokeType = ref("dash");
-// const lineCap = ref("square");
-// const backgroundColor = ref("#FFFFFF");
-// const additionalImages = ref([]);
-// const images = ref([illu, ski]);
-// const selectedImage = ref(null);
-
-// function randomItem(items) {
-//     return items[Math.random() % items.length];
-// }
-// onMounted(() => {
-//     selectedImage.value = randomItem(images);
-//     console.log(selectedImage.value);
-//     // }
-// });
 
 onMounted(() => {
     compare(skiOriginal, skiOriginal, function (result) {
         bestScore.value = result;
     });
 });
-// computed(() => {
-
-// })
-// function getStrokes() {
-//     window.localStorage.setItem(
-//         "vue-drawing-canvas",
-//         JSON.stringify(VueDrawingCanvas.getAllStrokes())
-//     );
-//     alert(
-//         "Strokes saved, reload your browser to see the canvas with previously saved image"
-//     );
-// }
-// function removeSavedStrokes() {
-//     window.localStorage.removeItem("vue-drawing-canvas");
-//     alert("Strokes cleared from local storage");
-// }
 </script>
 
 <template>
@@ -86,7 +40,6 @@ onMounted(() => {
                 :lineWidth="25"
             />
         </div>
-        <button @click="compareNow">Compare</button>
     </div>
 </template>
 
@@ -135,6 +88,3 @@ onMounted(() => {
     justify-content: space-between;
 }
 </style>
-<!-- runtime-core.esm-bundler.js?d2dd:40 [Vue warn]: Extraneous non-props attributes (class) were passed to component but could not be automatically inherited because component renders fragment or text root nodes. 
-  at <DrawPage class="home__draw-page" > 
-  at <HomePage onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref<  -->
