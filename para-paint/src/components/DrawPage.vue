@@ -1,95 +1,77 @@
 <template>
-    <div class="try_draw" style="position: relative;">
-        <div class="randomBgImage">
-          <img style="width: 1000px; height : 400px; object-fit: fill;" :src="selectedImage" alt="https://picsum.photos/1200/600">
-        </div>
-          <vue-drawing-canvas
-          ref="VueCanvasDrawing"
-          v-model:image="image"
-          :width="1200"
-          :height="600"
-          :stroke-type="strokeType"
-          :line-cap="lineCap"
-          :line-join="lineJoin"
-          :fill-shape="fillShape"
-          :eraser="eraser"
-          :lineWidth="line"
-          :color="color"
-          :background-color="backgroundColor"
-          :background-image="backgroundImage"
-          :watermark="watermark"
-          :initial-image="initialImage"
-          saveAs="png"
-          :lock="disabled"
-          :additional-images="additionalImages"
-          :styles="{
-            opacity: 0.35,
-          }"
-          />
+    <div class="try_draw" style="position: relative">
+        <vue-drawing-canvas
+            ref="VueCanvasDrawing"
+            v-model:image="image"
+            :width="1200"
+            :height="600"
+            :stroke-type="strokeType"
+            :line-cap="lineCap"
+            :line-join="lineJoin"
+            :fill-shape="fillShape"
+            :eraser="eraser"
+            :lineWidth="line"
+            :background-color="backgroundColor"
+            :watermark="watermark"
+            :initial-image="initialImage"
+            saveAs="png"
+            :lock="disabled"
+            :additional-images="additionalImages"
+            :background-image="ski"
+        />
     </div>
 </template>
 
-<script>
+<script setup>
 import VueDrawingCanvas from "vue-drawing-canvas";
+import { onMounted, ref } from "vue";
+import illu from "@/assets/illu.png";
+import ski from "@/assets/skieur_opacity.png";
 
-export default {
-    name: "DrawPage",
-    components: {
-        VueDrawingCanvas,
-    },
-    data() {
-    return {
-      x: 0,
-      y: 0,
-      image: null,
-      eraser: false,
-      disabled: false,
-      fillShape: false,
-      line: 5,
-      color: "#ff0000 ",
-      strokeType: "dash",
-      lineCap: "square",
-      lineJoin: "miter",
-      backgroundImage: null,
-      backgroundColor: "#FFFFFF",
-      watermark: null,
-      additionalImages: [],
-      debug: "debug",
-      images: [
-      'https://zupimages.net/up/23/12/mez6.png',
-      'https://zupimages.net/up/23/12/p0pm.png',
-    ],
-    selectedImage: null
-    };
-  },
-  mounted() {
-    this.selectedImage = this.randomItem(this.images)
-    if ("vue-drawing-canvas" in window.localStorage) {
-      this.initialImage = JSON.parse(
-        window.localStorage.getItem("vue-drawing-canvas")
-      );
-    }
-  },
-  methods: {
-    randomItem (items) {
-      return items[Math.floor(Math.random()*items.length)];
-    },
-    getStrokes() {
-      window.localStorage.setItem(
-        "vue-drawing-canvas",
-        JSON.stringify(this.$refs.VueCanvasDrawing.getAllStrokes())
-      );
-      alert(
-        "Strokes saved, reload your browser to see the canvas with previously saved image"
-      );
-    },
-    removeSavedStrokes() {
-      window.localStorage.removeItem("vue-drawing-canvas");
-      alert("Strokes cleared from local storage");
-    },
-  },
-};
+// const x = ref(0);
+// const y = ref(0);
+const image = ref(null);
+const eraser = ref(false);
+const disabled = ref(false);
+const fillShape = ref(false);
+const line = ref(5);
+// const color = ref("#ff0000 ");
+const strokeType = ref("dash");
+const lineCap = ref("square");
+const lineJoin = ref("round");
+const backgroundColor = ref("#FFFFFF");
+const watermark = ref(null);
+const additionalImages = ref([]);
+// const debug = ref("debug");
+const images = ref([illu, ski]);
+const selectedImage = ref(null);
 
+function randomItem(items) {
+    return items[Math.random() % items.length];
+}
+onMounted(() => {
+    selectedImage.value = randomItem(images);
+    console.log(selectedImage.value);
+    // if ("vue-drawing-canvas" in window.localStorage) {
+    //     initialImage = JSON.parse(
+    //         window.localStorage.getItem("vue-drawing-canvas")
+    //     );
+    // }
+});
+
+// function getStrokes() {
+//     window.localStorage.setItem(
+//         "vue-drawing-canvas",
+//         JSON.stringify(VueDrawingCanvas.getAllStrokes())
+//     );
+//     alert(
+//         "Strokes saved, reload your browser to see the canvas with previously saved image"
+//     );
+// }
+// function removeSavedStrokes() {
+//     window.localStorage.removeItem("vue-drawing-canvas");
+//     alert("Strokes cleared from local storage");
+// }
 </script>
 
 <style lang="scss">
@@ -119,7 +101,7 @@ export default {
 }
 .randomBgImage {
     width: 1200px;
-    height : 600px;
+    height: 600px;
     position: absolute;
     position: absolute;
     top: 50%;
