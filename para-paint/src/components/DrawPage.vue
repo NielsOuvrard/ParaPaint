@@ -1,6 +1,7 @@
 <script setup>
 import VueDrawingCanvas from "vue-drawing-canvas";
 import { ref, onMounted, watch, getCurrentInstance } from "vue";
+// import axios from "axios";
 
 // import ski from "@/assets/skieur_opacity.png";
 // import skiOriginal from "@/assets/skieur.png";
