@@ -1,6 +1,6 @@
 <script setup>
 import VueDrawingCanvas from "vue-drawing-canvas";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 // import illu from "@/assets/illu.png";
 import ski from "@/assets/skieur_opacity.png";
 import skiOriginal from "@/assets/skieur_no_opacity.png";
@@ -10,6 +10,13 @@ const image = ref(null);
 const lineJoin = ref("round");
 const bestScore = ref(0);
 const Score = ref(0);
+
+watch(image, () => {
+    console.log("image changed");
+    compare(skiOriginal, image.value, (result) => {
+        Score.value = result;
+    });
+});
 
 function compareNow() {
     compare(skiOriginal, image.value, (result) => {
@@ -65,20 +72,22 @@ onMounted(() => {
 </script>
 
 <template>
-    <p>Precision : {{ Math.round((Score / bestScore) * 10000) / 100 }}%</p>
-    <div class="try_draw" style="position: relative">
-        <vue-drawing-canvas
-            ref="VueCanvasDrawing"
-            v-model:image="image"
-            :width="1067"
-            :height="600"
-            :line-join="lineJoin"
-            saveAs="png"
-            :background-image="ski"
-            :lineWidth="25"
-        />
+    <div>
+        <p>Precision : {{ Math.round((Score / bestScore) * 10000) / 100 }}%</p>
+        <div class="try_draw" style="position: relative">
+            <vue-drawing-canvas
+                ref="VueCanvasDrawing"
+                v-model:image="image"
+                :width="1067"
+                :height="600"
+                :line-join="lineJoin"
+                saveAs="png"
+                :background-image="ski"
+                :lineWidth="25"
+            />
+        </div>
+        <button @click="compareNow">Compare</button>
     </div>
-    <button @click="compareNow">Compare</button>
 </template>
 
 <style lang="scss">
@@ -126,3 +135,6 @@ onMounted(() => {
     justify-content: space-between;
 }
 </style>
+<!-- runtime-core.esm-bundler.js?d2dd:40 [Vue warn]: Extraneous non-props attributes (class) were passed to component but could not be automatically inherited because component renders fragment or text root nodes. 
+  at <DrawPage class="home__draw-page" > 
+  at <HomePage onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref<  -->
