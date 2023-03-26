@@ -58,6 +58,51 @@ onMounted(() => {
       }, 1000);
 });
 
+async function sendDataToServer(pseudo, score) {
+    var formData = new FormData();
+
+    formData.append("pseudo", pseudo);
+    formData.append("score", score);
+    formData.append("enemy_pseudo", "Stella");
+    formData.append("enemy_score", 0);
+
+    // let value = await fetch("http://82.66.173.132/?api=parapaint", {
+    //     method: "POST",
+    //     body: formData,
+    // });
+    // // let value = axios.get("http://82.66.173.132/?api=parapaint");
+    let value = null;
+    try {
+        value = await fetch("http://82.66.173.132/?api=parapaint", {
+            method: "POST",
+            body: formData,
+        });
+        console.log("Data sent successfully:", value.data);
+    } catch (error) {
+        console.error("Error sending data:", error);
+    }
+
+    console.log(value);
+    return value;
+
+    // const url = "http://82.66.173.132/api=parapaint";
+    // const data = {
+    //     data: [
+    //         {
+    //             pseudo: pseudo,
+    //             score: score,
+    //         },
+    //     ],
+    // };
+
+    // try {
+    //     const response = await axios.post(url, data);
+    //     console.log("Data sent successfully:", response.data);
+    // } catch (error) {
+    //     console.error("Error sending data:", error);
+    // }
+}
+
 const routes = [
     {
         path: "/result",
@@ -100,6 +145,9 @@ const routes = [
                 />
             </svg>
             Undo
+        </button>
+        <button type="button" @click="sendDataToServer('Stolas', Score)">
+            Send
         </button>
         <div v-if="remainingTime != 0" class="try_draw" style="position: relative">
             <vue-drawing-canvas
