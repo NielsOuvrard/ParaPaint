@@ -2,8 +2,10 @@
 import VueDrawingCanvas from "vue-drawing-canvas";
 import { ref, onMounted, watch } from "vue";
 // import illu from "@/assets/illu.png";
-import ski from "@/assets/skieur_opacity.png";
-import skiOriginal from "@/assets/skieur_no_opacity.png";
+// import ski from "@/assets/skieur_opacity.png";
+// import skiOriginal from "@/assets/skieur.png";
+import ski from "@/assets/thales_opacity.png";
+import skiOriginal from "@/assets/thales.png";
 import compare from "@/components/compareImage.js";
 
 const image = ref(null);
@@ -12,7 +14,6 @@ const bestScore = ref(0);
 const Score = ref(0);
 
 watch(image, () => {
-    console.log("image changed");
     compare(skiOriginal, image.value, (result) => {
         if (result > 0) Score.value = result;
     });
