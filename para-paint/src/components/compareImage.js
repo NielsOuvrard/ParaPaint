@@ -24,7 +24,6 @@ function compare(firstImage, secondImage, callback) {
                 return;
             }
 
-            // var diff = 0;
             var same = 0;
             for (let i = 0; i < img1.data.length; i += 4) {
                 const r1 = img1.data[i];
@@ -46,35 +45,9 @@ function compare(firstImage, secondImage, callback) {
                     same++;
                 }
             }
-            // for (var i = 0; i < img1.data.length / 4; i++) {
-            //     if (
-            //         img1.data[4 * i + 0] === 0 &&
-            //         img1.data[4 * i + 1] === 0 &&
-            //         img1.data[4 * i + 2] === 0 &&
-            //         img2.data[4 * i + 0] === 0 &&
-            //         img2.data[4 * i + 1] === 0 &&
-            //         img2.data[4 * i + 2] === 0
-            //     ) {
-            //         same++;
-            //     }
-            //     // same += img1.data[4 * i + 0] === img2.data[4 * i + 0] ? 1 : 0;
-            //     // diff +=
-            //     //     Math.abs(img1.data[4 * i + 0] - img2.data[4 * i + 0]) / 255;
-            //     // diff +=
-            //     //     Math.abs(img1.data[4 * i + 1] - img2.data[4 * i + 1]) / 255;
-            //     // diff +=
-            //     //     Math.abs(img1.data[4 * i + 2] - img2.data[4 * i + 2]) / 255;
-            //     // if (img1.data[i] === img2.data[i]) {
-            //     //     console.log("color ?", img1.data[i], img2.data[i]);
-            //     //     same++;
-            //     // }
-            // }
             callback(same);
         });
     });
 }
 
 export default compare;
-// compare("Lenna50.jpg", "Lenna100.jpg", function (result) {
-//     console.log(result);
-// });

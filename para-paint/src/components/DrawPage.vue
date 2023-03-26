@@ -1,7 +1,7 @@
 <script setup>
 import VueDrawingCanvas from "vue-drawing-canvas";
 import { ref, onMounted, watch } from "vue";
-// import illu from "@/assets/illu.png";
+
 // import ski from "@/assets/skieur_opacity.png";
 // import skiOriginal from "@/assets/skieur.png";
 import ski from "@/assets/thales_opacity.png";
@@ -29,6 +29,25 @@ onMounted(() => {
 <template>
     <div>
         <p>Precision : {{ Math.round((Score / bestScore) * 10000) / 100 }}%</p>
+        <button type="button" @click.prevent="$refs.VueCanvasDrawing.undo()">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-counterclockwise"
+                viewBox="0 0 16 16"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"
+                />
+                <path
+                    d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"
+                />
+            </svg>
+            Undo
+        </button>
         <div class="try_draw" style="position: relative">
             <vue-drawing-canvas
                 ref="VueCanvasDrawing"
