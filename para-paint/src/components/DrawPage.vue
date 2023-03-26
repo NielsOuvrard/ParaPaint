@@ -15,7 +15,7 @@ const lineJoin = ref("round");
 const bestScore = ref(0);
 const Score = ref(0);
 
-const remainingTime = ref(5);
+const remainingTime = ref(30);
 const clientFinished = ref(0);
 
 const instance = getCurrentInstance();
