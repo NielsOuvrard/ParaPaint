@@ -1,6 +1,6 @@
 <script setup>
 import myHeader from "./components/HeaderComponent.vue";
-// import myFooter from "./components/FooterComponent.vue";
+import myFooter from "./components/FooterComponent.vue";
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import myHeader from "./components/HeaderComponent.vue";
         <main>
             <router-view></router-view>
         </main>
-        <!-- <myFooter /> -->
+        <myFooter />
     </div>
 </template>
 

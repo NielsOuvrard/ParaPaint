@@ -69,7 +69,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <p>{{ Score }} / {{ bestScore }}</p>
     <p>{{ (Score / bestScore) * 100 }}%</p>
     <div class="try_draw" style="position: relative">
         <vue-drawing-canvas
@@ -83,7 +82,6 @@ onMounted(() => {
             :lineWidth="25"
         />
     </div>
-    <button @click="compareNow">compareNow</button>
 </template>
 
 <style lang="scss">
