@@ -1,6 +1,54 @@
-<script>
-import VueDrawingCanvas from "vue-drawing-canvas";
+<template>
+  <form @submit.prevent="getPng">
+    <label>
+      Enter pngtxt:
+      <input type="text" v-model="pngtxt" />
+    </label>
+    <button type="submit" multiple>Submit</button>
+  </form>
+  <p>{{ pngserver }}</p>
+  <img :src="pngserver" style="border: solid 1px #000000" />
+</template>
 
+<script>
+export default {
+  data() {
+    return {
+      pngserver: 'Waiting for txt...',
+      pngtxt: 'Placeholder',
+    };
+  },
+  mounted() {
+    this.$socket.on('send-png', (data) => {
+      console.log('Bg-page >> send-png', data);
+      this.pngserver = data;
+    });
+  },
+  methods: {
+    getPng() {
+      this.$socket.emit('get-png', this.pngtxt);
+
+      // Clear form fields
+      // this.pngtxt = '';
+    },
+  },
+};
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+
+
+<!-- <script>
+import VueDrawingCanvas from "vue-drawing-canvas";
 export default {
   name: "ServeDev",
   components: {
@@ -381,4 +429,4 @@ body {
   margin-top: 15px;
   margin-right: 10px;
 }
-</style>
+</style> -->

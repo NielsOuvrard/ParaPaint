@@ -7,9 +7,9 @@ export const useCredentialsStore = defineStore("credentials", {
     // getters: {
     //     doubleCount: (state) => state.count * 2,
     // },
-    setters: {
-        setName: (state, name) => (state.name = name),
-    },
+    // setters: {
+    //     setName: (state, name) => (state.name = name),
+    // },
     // actions: {
     //     // init(): (state) => (state.name = ""),
     //     setName: (state, name) => (state.name = name),

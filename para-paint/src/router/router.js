@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home-page.vue";
 import About from "../views/About-page.vue";
 import Login from "../views/Login-page.vue";
-import Bg from "../views/Bg.vue";   // Debug Flo
+import Bg from "../views/Bg-page.vue";   // Debug Flo
 
 const routes = [
     {
