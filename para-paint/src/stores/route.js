@@ -14,6 +14,11 @@ export const useRouterStore = defineStore("Router", {
                 name: "about",
                 // component: About,
             },
+            {
+                path: "/result",
+                name: "result",
+                // component: About,
+            },
             // {
             //     path: "/draw",
             //     name: "draw",

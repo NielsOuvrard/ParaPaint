@@ -9,13 +9,18 @@ io.on('connection', (socket) => {
     console.log('New client connected');
 
     socket.on('entered-nickname', (data) => {
-        console.log('Client logged in with nickname : ', data);
+        console.log('Client2 logged in with nickname : ', data);
         socket.broadcast.emit('client-logged', data);
     });
 
-    socket.on('get-png', (data) => {
-        console.log('server >> get-png', data);
-        socket.broadcast.emit('send-png', data)
+    socket.on('ready-to-play', (data) => {
+        console.log('Client1 logged in with nickname : ', data);
+        socket.broadcast.emit('client1-ready', data);
+    });
+
+    socket.on('player-finished', (png, score) => {
+        console.log('server >> player-finished >> too long');
+        socket.broadcast.emit('client-finished', png, score)
     });
     
     socket.on('disconnect', () => {

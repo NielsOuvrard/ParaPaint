@@ -16,24 +16,60 @@
         </form>
         <div v-else>
             <p>Logged in as {{ name }}</p>
-            <router-link to="/">Go to Home</router-link>
+            <div v-if="name2 == null || name2 == ''">
+                <p>Waiting for another player...</p>
+            </div>
+            <div v-else>
+                <p>Player 2 connected, his name is {{ name2 }}</p>
+                <router-link :to="routes[0].path">
+                <h1>Play game!</h1>
+            </router-link>
+            </div>
+            <!-- <router-link to="/">Go to Home</router-link> -->
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, getCurrentInstance } from "vue";
 import { useCredentialsStore } from "../stores/credentialsStore.js";
 const store = useCredentialsStore();
 
 const name = ref("");
+const name2 = ref("");
+
+const instance = getCurrentInstance();
 
 function login() {
     store.name = name.value;
+    // emit that you just logged in:
+    instance.appContext.config.globalProperties.$socket.emit('entered-nickname', name.value);
 }
 onMounted(() => {
     name.value = store.name;
+    // When another client join:
+    instance.appContext.config.globalProperties.$socket.on('client-logged', (data) => {
+        console.log('Login-page >> client-logged >> data = ', data);
+        name2.value = data;  // Save with pinia
+        store.name2 = name2.value;
+        instance.appContext.config.globalProperties.$socket.emit('ready-to-play', name.value);
+    });
+
+    // When first client is ready to play
+    instance.appContext.config.globalProperties.$socket.on('client1-ready', (data) => {
+        console.log('Login-page >> client1-ready >> data = ', data);
+        name2.value = data;  // Save with pinia
+        store.name2 = name2.value;
+    });
 });
+
+const routes = [
+    {
+        path: "/",
+        name: "Home",
+        component: () => import("../views/Home-page.vue"),
+    },
+];
 </script>
 
 <style scoped lang="scss">
