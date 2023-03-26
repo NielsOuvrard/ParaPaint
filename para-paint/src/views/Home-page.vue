@@ -1,16 +1,10 @@
 <script setup>
 import DrawPage from "../components/DrawPage.vue";
-import { useCredentialsStore } from "../stores/credentialsStore.js";
 
-const store = useCredentialsStore();
 </script>
 
 <template>
     <div class="home">
-        <!-- <h1 class="home__title">Home</h1> -->
-        <p v-if="store.name" class="home__subtitle">
-            Player : {{ store.name }}
-        </p>
         <DrawPage class="home__draw-page" />
     </div>
 </template>
@@ -20,7 +14,7 @@ const store = useCredentialsStore();
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 0rem;
 }
 
 .home__title {

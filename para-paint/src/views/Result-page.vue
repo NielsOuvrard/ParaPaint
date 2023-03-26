@@ -12,10 +12,7 @@
             <p>{{ store.name2 }}</p>
             <p>{{ store.scoreClient }}%</p>
         </div>
-        <img :src="store.pngClient" style="border: solid 1px #000000" />
-    </div>
-    <div class="result">
-
+        <img :src="store.pngClient" style="border: solid 1px #000000"/>
     </div>
 </template>
 
