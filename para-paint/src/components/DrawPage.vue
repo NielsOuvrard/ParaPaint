@@ -1,6 +1,6 @@
 <script setup>
 import VueDrawingCanvas from "vue-drawing-canvas";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 // import illu from "@/assets/illu.png";
 import ski from "@/assets/skieur_opacity.png";
 import skiOriginal from "@/assets/skieur_no_opacity.png";
@@ -11,12 +11,8 @@ const lineJoin = ref("round");
 const bestScore = ref(0);
 const Score = ref(0);
 
-watch(image, (newValue) => {
-    if (newValue) compareNow();
-});
-
 function compareNow() {
-    compare(skiOriginal, image.value, function (result) {
+    compare(skiOriginal, image.value, (result) => {
         Score.value = result;
     });
 }
@@ -69,7 +65,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <p>{{ (Score / bestScore) * 100 }}%</p>
+    <p>Precision : {{ Math.round((Score / bestScore) * 10000) / 100 }}%</p>
     <div class="try_draw" style="position: relative">
         <vue-drawing-canvas
             ref="VueCanvasDrawing"
@@ -82,6 +78,7 @@ onMounted(() => {
             :lineWidth="25"
         />
     </div>
+    <button @click="compareNow">Compare</button>
 </template>
 
 <style lang="scss">
@@ -100,10 +97,6 @@ onMounted(() => {
     padding-left: 32px;
 }
 .try_draw {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 64px;
-    margin-bottom: 64px;
     width: 1200px;
     height: 600px;
     border: 4px solid;
