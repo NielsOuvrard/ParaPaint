@@ -1,14 +1,14 @@
 <script setup>
 import VueDrawingCanvas from "vue-drawing-canvas";
 import { ref, onMounted, watch, getCurrentInstance } from "vue";
-// import axios from "axios";
-
 // import ski from "@/assets/skieur_opacity.png";
 // import skiOriginal from "@/assets/skieur.png";
+
 import ski from "@/assets/thales_opacity.png";
 import skiOriginal from "@/assets/thales.png";
 import compare from "@/components/compareImage.js";
 import { useCredentialsStore } from "../stores/credentialsStore.js";
+
 const store = useCredentialsStore();
 const image = ref(null);
 const lineJoin = ref("round");
@@ -20,14 +20,17 @@ const clientFinished = ref(0);
 
 const instance = getCurrentInstance();
 
-
 function endTimer() {
-    console.log('DrawPage >> endTimer >> data = too long');
+    console.log("DrawPage >> endTimer >> data = too long");
     // Emit to server when finished
     store.pngPlayer = image; // Save with pinia
     Score.value = Math.round((Score.value / bestScore.value) * 10000) / 100;
     store.scorePlayer = Score.value; // Save with pinia
-    instance.appContext.config.globalProperties.$socket.emit('player-finished', image, Score.value);
+    instance.appContext.config.globalProperties.$socket.emit(
+        "player-finished",
+        image,
+        Score.value
+    );
 }
 
 watch(image, () => {
@@ -38,12 +41,15 @@ watch(image, () => {
 
 onMounted(() => {
     // When other player finished
-    instance.appContext.config.globalProperties.$socket.on('client-finished', (png, score) => {
-        console.log('DrawPage >> client-finished >> data too long');
-        store.pngClient = png._value; // Save with pinia
-        store.scoreClient = score; // Save with pinia
-        clientFinished.value = 1;
-    });
+    instance.appContext.config.globalProperties.$socket.on(
+        "client-finished",
+        (png, score) => {
+            console.log("DrawPage >> client-finished >> data too long");
+            store.pngClient = png._value; // Save with pinia
+            store.scoreClient = score; // Save with pinia
+            clientFinished.value = 1;
+        }
+    );
 
     compare(skiOriginal, skiOriginal, function (result) {
         bestScore.value = result;
@@ -53,10 +59,11 @@ onMounted(() => {
         remainingTime.value--;
 
         if (remainingTime.value === 0) {
-          clearInterval(interval);
-          endTimer();
+            clearInterval(interval);
+            endTimer();
+            sendDataToServer(store.name, Score.value);
         }
-      }, 1000);
+    }, 1000);
 });
 
 async function sendDataToServer(pseudo, score) {
@@ -64,14 +71,8 @@ async function sendDataToServer(pseudo, score) {
 
     formData.append("pseudo", pseudo);
     formData.append("score", score);
-    formData.append("enemy_pseudo", "Stella");
-    formData.append("enemy_score", 0);
-
-    // let value = await fetch("http://82.66.173.132/?api=parapaint", {
-    //     method: "POST",
-    //     body: formData,
-    // });
-    // // let value = axios.get("http://82.66.173.132/?api=parapaint");
+    formData.append("enemy_pseudo", store.name2);
+    formData.append("enemy_score", store.scoreClient);
     let value = null;
     try {
         value = await fetch("http://82.66.173.132/?api=parapaint", {
@@ -85,23 +86,6 @@ async function sendDataToServer(pseudo, score) {
 
     console.log(value);
     return value;
-
-    // const url = "http://82.66.173.132/api=parapaint";
-    // const data = {
-    //     data: [
-    //         {
-    //             pseudo: pseudo,
-    //             score: score,
-    //         },
-    //     ],
-    // };
-
-    // try {
-    //     const response = await axios.post(url, data);
-    //     console.log("Data sent successfully:", response.data);
-    // } catch (error) {
-    //     console.error("Error sending data:", error);
-    // }
 }
 
 const routes = [
@@ -115,7 +99,9 @@ const routes = [
 
 <template>
     <div>
-        <h2 v-if="remainingTime != 0">Time remaining: {{ remainingTime }} seconds</h2>
+        <h2 v-if="remainingTime != 0">
+            Time remaining: {{ remainingTime }} seconds
+        </h2>
         <div v-else>
             <h2>Time's up!!</h2>
             <div v-if="clientFinished != 0">
@@ -124,9 +110,10 @@ const routes = [
                 </router-link>
             </div>
             <p v-else>Waiting for other player to finish...</p>
-
         </div>
-        <p v-if="remainingTime != 0">Precision : {{ Math.round((Score / bestScore) * 10000) / 100 }}%</p>
+        <p v-if="remainingTime != 0">
+            Precision : {{ Math.round((Score / bestScore) * 10000) / 100 }}%
+        </p>
         <p v-else>Precision : {{ Score }}%</p>
         <button type="button" @click.prevent="$refs.VueCanvasDrawing.undo()">
             <svg
@@ -147,10 +134,11 @@ const routes = [
             </svg>
             Undo
         </button>
-        <button type="button" @click="sendDataToServer('Stolas', Score)">
-            Send
-        </button>
-        <div v-if="remainingTime != 0" class="try_draw" style="position: relative">
+        <div
+            v-if="remainingTime != 0"
+            class="try_draw"
+            style="position: relative"
+        >
             <vue-drawing-canvas
                 ref="VueCanvasDrawing"
                 v-model:image="image"

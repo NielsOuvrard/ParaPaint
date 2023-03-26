@@ -7,16 +7,6 @@ export const useCredentialsStore = defineStore("credentials", {
         scorePlayer: "",
         scoreClient: "",
         pngPlayer: "",
-        pngClient: ""
+        pngClient: "",
     }),
-    // getters: {
-    //     doubleCount: (state) => state.count * 2,
-    // },
-    // setters: {
-    //     setName: (state, name) => (state.name = name),
-    // },
-    // actions: {
-    //     // init(): (state) => (state.name = ""),
-    //     setName: (state, name) => (state.name = name),
-    // },
 });
