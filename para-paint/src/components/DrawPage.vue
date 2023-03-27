@@ -1,13 +1,47 @@
 <script setup>
 import VueDrawingCanvas from "vue-drawing-canvas";
 import { ref, onMounted, watch, getCurrentInstance } from "vue";
-// import ski from "@/assets/skieur_opacity.png";
-// import skiOriginal from "@/assets/skieur.png";
 
-import ski from "@/assets/thales_opacity.png";
-import skiOriginal from "@/assets/thales.png";
+// chat italy terre ski thales
+import chat from "@/assets/chat_opacity.png";
+import chatOriginal from "@/assets/chat.png";
+import italy from "@/assets/italy_opacity.png";
+import italyOriginal from "@/assets/italy.png";
+import terre from "@/assets/terre_opacity.png";
+import terreOriginal from "@/assets/terre.png";
+import ski from "@/assets/skieur_opacity.png";
+import skiOriginal from "@/assets/skieur.png";
+import thales from "@/assets/thales_opacity.png";
+import thalesOriginal from "@/assets/thales.png";
+
 import compare from "@/components/compareImage.js";
 import { useCredentialsStore } from "../stores/credentialsStore.js";
+
+const images = [
+    {
+        src: chat,
+        original: chatOriginal,
+    },
+    {
+        src: italy,
+        original: italyOriginal,
+    },
+    {
+        src: terre,
+        original: terreOriginal,
+    },
+    {
+        src: ski,
+        original: skiOriginal,
+    },
+    {
+        src: thales,
+        original: thalesOriginal,
+    },
+];
+
+// random from 0 to 4
+const index_image = ref(Math.floor(Math.random() * 5));
 
 const store = useCredentialsStore();
 const image = ref(null);
@@ -34,7 +68,7 @@ function endTimer() {
 }
 
 watch(image, () => {
-    compare(skiOriginal, image.value, (result) => {
+    compare(images[index_image.value].original, image.value, (result) => {
         if (result > 0) Score.value = result;
     });
 });
@@ -51,9 +85,13 @@ onMounted(() => {
         }
     );
 
-    compare(skiOriginal, skiOriginal, function (result) {
-        bestScore.value = result;
-    });
+    compare(
+        images[index_image.value].original,
+        images[index_image.value].original,
+        function (result) {
+            bestScore.value = result;
+        }
+    );
 
     const interval = setInterval(() => {
         remainingTime.value--;
@@ -146,7 +184,7 @@ const routes = [
                 :height="600"
                 :line-join="lineJoin"
                 saveAs="png"
-                :background-image="ski"
+                :background-image="images[index_image].src"
                 :lineWidth="25"
             />
         </div>
